@@ -76,7 +76,7 @@ $spacing-xl: 1rem;
   h1 {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: $spacing-sm;
+    margin: $spacing-sm;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
@@ -90,7 +90,7 @@ $spacing-xl: 1rem;
 // Form section
 .form-section {
   @include section-base;
-  margin-bottom: $spacing-lg;
+  margin-bottom: $spacing-md;
 }
 
 .password-form {
@@ -196,7 +196,6 @@ $spacing-xl: 1rem;
 .checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
 }
 
 .checkbox-label {
@@ -208,7 +207,6 @@ $spacing-xl: 1rem;
   border-radius: $border-radius;
   transition: all 0.2s;
   user-select: none;
-  margin-bottom: $spacing-md;
 
   &:hover {
     background: $hover-color;
@@ -267,7 +265,7 @@ $spacing-xl: 1rem;
 // Password section
 .password-section {
   @include section-base;
-  margin-bottom: $spacing-lg;
+  margin-bottom: $spacing-md;
 }
 
 .section-title {
@@ -347,6 +345,7 @@ $spacing-xl: 1rem;
     background: $light-color;
     border-radius: $border-radius;
     border: 1px solid $border-color;
+    flex-direction: row;
   }
 
   .recent-password {
@@ -388,6 +387,8 @@ $spacing-xl: 1rem;
   &-secondary {
     background: $secondary-color;
     color: white;
+    min-width: 40px;
+    padding: $spacing-xs;
 
     &:hover:not(:disabled) {
       background: $secondary-hover;
@@ -442,13 +443,5 @@ $spacing-xl: 1rem;
     flex-direction: column;
     align-items: stretch;
     text-align: center;
-  }
-  
-  .checkbox-group {
-    gap: $spacing-sm;
-  }
-  
-  .checkbox-label {
-    margin-bottom: $spacing-sm;
   }
 }

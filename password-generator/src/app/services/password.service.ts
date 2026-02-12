@@ -4,7 +4,7 @@ import { PasswordOptions, GeneratedPassword } from '../interfaces';
 @Injectable({ providedIn: 'root' })
 export class PasswordService {
   private readonly recentPasswords: GeneratedPassword[] = [];
-  private readonly maxRecentPasswords = 5;
+  private readonly maxRecentPasswords = 3;
   private readonly characterSets = {
     lowercase: 'abcdefghijklmnopqrstuvwxyz',
     uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',

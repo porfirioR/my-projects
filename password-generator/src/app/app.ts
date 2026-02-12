@@ -126,6 +126,6 @@ export class App {
   }
 
   private clearCopyMessage(): void {
-    setTimeout(() => (this.copyMessage = ''), 2000);
+    setTimeout(() => (this.copyMessage = ''), 1000);
   }
 }
