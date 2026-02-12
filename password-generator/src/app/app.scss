@@ -1,0 +1,454 @@
+// src/app/app.component.scss
+
+// Variables SCSS
+$primary-color: #007bff;
+$primary-hover: #0056b3;
+$secondary-color: #6c757d;
+$secondary-hover: #545b62;
+$success-color: #28a745;
+$success-hover: #218838;
+$danger-color: #dc3545;
+$warning-color: #ffc107;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+$border-color: #dee2e6;
+$hover-color: #e9ecef;
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 1rem;
+
+// Mixins
+@mixin button-base {
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $border-radius;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  min-width: 100px;
+  height: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@mixin section-base {
+  background: white;
+  border-radius: $border-radius;
+  padding: $spacing-xl;
+  box-shadow: $shadow;
+}
+
+// Container principal
+.password-generator-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: $spacing-lg $spacing-xl;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+// Header
+.app-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  color: white;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: $spacing-sm;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+// Form section
+.form-section {
+  @include section-base;
+  margin-bottom: $spacing-lg;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+// Form groups
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.form-label {
+  font-weight: 600;
+  color: $dark-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.length-value {
+  background: $primary-color;
+  color: white;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+// Range input mejorado
+.range-input {
+  width: 100%;
+  height: 10px;
+  background: $border-color;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+
+  &::-webkit-slider-track {
+    width: 100%;
+    height: 10px;
+    background: $border-color;
+    border-radius: 5px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: $primary-color;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background: $primary-hover;
+      transform: scale(1.1);
+    }
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: 10px;
+    background: $border-color;
+    border-radius: 5px;
+    border: none;
+  }
+
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: $primary-color;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: $secondary-color;
+  margin-top: $spacing-xs;
+}
+
+// Options
+.options-title {
+  margin: 0;
+  font-size: 1.125rem;
+  color: $dark-color;
+  font-weight: 600;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+  padding: $spacing-sm;
+  border-radius: $border-radius;
+  transition: all 0.2s;
+  user-select: none;
+  margin-bottom: $spacing-md;
+
+  &:hover {
+    background: $hover-color;
+  }
+}
+
+.checkbox-input {
+  display: none;
+
+  &:checked + .checkbox-custom {
+    background: $success-color;
+    border-color: $success-color;
+
+    &::after {
+      content: '✓';
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $border-color;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+// Error section
+.error-section {
+  margin-top: $spacing-sm;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  background: #fee;
+  color: $danger-color;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius;
+  border-left: 4px solid $danger-color;
+  font-size: 0.875rem;
+
+  .error-icon {
+    font-size: 1rem;
+  }
+}
+
+// Password section
+.password-section {
+  @include section-base;
+  margin-bottom: $spacing-lg;
+}
+
+.section-title {
+  margin: 0 0 $spacing-md 0;
+  font-size: 1.125rem;
+  color: $dark-color;
+  font-weight: 600;
+  text-align: center;
+}
+
+.password-display {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  border: 2px solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  background: $light-color;
+}
+
+.password-text {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-align: center;
+  word-break: break-all;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: $border-radius;
+  padding: $spacing-sm;
+}
+
+.password-actions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.no-password {
+  text-align: center;
+  color: $secondary-color;
+  font-style: italic;
+  padding: $spacing-xl;
+  border: 2px dashed $border-color;
+  border-radius: $border-radius;
+}
+
+.copy-message {
+  text-align: center;
+  padding: $spacing-sm;
+  background: $success-color;
+  color: white;
+  border-radius: $border-radius;
+  font-size: 0.875rem;
+  margin-top: $spacing-sm;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+// Recent section
+.recent-section {
+  @include section-base;
+
+  .recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  .recent-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-sm;
+    background: $light-color;
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+  }
+
+  .recent-password {
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .recent-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    color: $secondary-color;
+    text-align: right;
+
+    .recent-length,
+    .recent-time {
+      line-height: 1.2;
+    }
+  }
+}
+
+// Buttons
+.btn {
+  @include button-base;
+
+  &-primary {
+    background: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: $primary-hover;
+    }
+  }
+
+  &-secondary {
+    background: $secondary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: $secondary-hover;
+    }
+  }
+
+  &-small {
+    padding: $spacing-xs;
+    font-size: 0.75rem;
+    min-width: 32px;
+    height: 32px;
+
+    &:hover {
+      background: $hover-color;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .password-generator-container {
+    padding: $spacing-md $spacing-md;
+  }
+  
+  .form-section,
+  .password-section,
+  .recent-section {
+    padding: $spacing-md;
+  }
+  
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .password-display {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .password-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .recent-item {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .checkbox-group {
+    gap: $spacing-sm;
+  }
+  
+  .checkbox-label {
+    margin-bottom: $spacing-sm;
+  }
+}
