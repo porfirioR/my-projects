@@ -1,4 +1,3 @@
-<!-- src/app/app.component.html -->
 <div class="password-generator-container">
   <!-- Header -->
   <header class="app-header">
@@ -14,7 +13,38 @@
         <label for="length" class="form-label">
           Longitud: <span class="length-value">{{ passwordForm.get('length')?.value }}</span>
         </label>
-        <input type="range" id="length" formControlName="length" min="4" max="25" class="range-input">
+        
+        <!-- Controles de longitud con botones -->
+        <div class="length-controls">
+          <button 
+            type="button" 
+            (click)="decreaseLength()" 
+            class="btn btn-length"
+            [disabled]="passwordForm.get('length')!.value <= minPasswordLength"
+            title="Disminuir longitud"
+            aria-label="Disminuir longitud">
+            −
+          </button>
+          
+          <input 
+            type="range" 
+            id="length" 
+            formControlName="length" 
+            min="4" 
+            max="25" 
+            class="range-input">
+          
+          <button 
+            type="button" 
+            (click)="increaseLength()" 
+            class="btn btn-length"
+            [disabled]="passwordForm.get('length')!.value >= maxPasswordLength"
+            title="Aumentar longitud"
+            aria-label="Aumentar longitud">
+            +
+          </button>
+        </div>
+        
         <div class="range-labels">
           <span>4</span>
           <span>25</span>
@@ -74,12 +104,23 @@
         <div class="password-text">{{ currentPassword }}</div>
 
         <div class="password-actions">
-          <button type="button" (click)="regeneratePassword()" class="btn btn-secondary"
-            [disabled]="passwordForm.invalid">
+          <button 
+            type="button"
+            (click)="regeneratePassword()" 
+            class="btn btn-secondary"
+            [disabled]="passwordForm.invalid"
+            title="Generar nueva contraseña"
+            aria-label="Generar nueva contraseña">
             🔄
           </button>
 
-          <button type="button" (click)="copyToClipboard()" class="btn btn-primary" [disabled]="!currentPassword">
+          <button 
+            type="button" 
+            (click)="copyToClipboard()" 
+            class="btn btn-primary" 
+            [disabled]="!currentPassword"
+            title="Copiar contraseña al portapapeles"
+            aria-label="Copiar contraseña">
             📋 Copiar
           </button>
         </div>
@@ -90,10 +131,10 @@
       </div>
       }
 
-      <!-- Copy Message -->
-      @if (copyMessage) {
+      <!-- Copy Message con signal -->
+      @if (showCopyMessage()) {
       <div class="copy-message">
-        {{ copyMessage }}
+        {{ copyMessage() }}
       </div>
       }
     </div>
@@ -112,7 +153,12 @@
           <span class="recent-length">{{ recent.options.length }} caracteres</span>
           <span class="recent-time">{{ recent.timestamp | date:'HH:mm' }}</span>
         </div>
-        <button type="button" (click)="copyRecentPassword(recent.password)" class="btn btn-small">
+        <button 
+          type="button" 
+          (click)="copyRecentPassword(recent.password)" 
+          class="btn btn-small"
+          title="Copiar esta contraseña"
+          aria-label="Copiar contraseña anterior">
           📋
         </button>
       </div>
