@@ -13,7 +13,38 @@
         <label for="length" class="form-label">
           Longitud: <span class="length-value">{{ passwordForm.get('length')?.value }}</span>
         </label>
-        <input type="range" id="length" formControlName="length" min="4" max="25" class="range-input">
+        
+        <!-- Controles de longitud con botones -->
+        <div class="length-controls">
+          <button 
+            type="button" 
+            (click)="decreaseLength()" 
+            class="btn btn-length"
+            [disabled]="passwordForm.get('length')!.value <= minPasswordLength"
+            title="Disminuir longitud"
+            aria-label="Disminuir longitud">
+            −
+          </button>
+          
+          <input 
+            type="range" 
+            id="length" 
+            formControlName="length" 
+            min="4" 
+            max="25" 
+            class="range-input">
+          
+          <button 
+            type="button" 
+            (click)="increaseLength()" 
+            class="btn btn-length"
+            [disabled]="passwordForm.get('length')!.value >= maxPasswordLength"
+            title="Aumentar longitud"
+            aria-label="Aumentar longitud">
+            +
+          </button>
+        </div>
+        
         <div class="range-labels">
           <span>4</span>
           <span>25</span>
@@ -74,7 +105,7 @@
 
         <div class="password-actions">
           <button 
-            type="button" 
+            type="button"
             (click)="regeneratePassword()" 
             class="btn btn-secondary"
             [disabled]="passwordForm.invalid"

@@ -28,9 +28,10 @@ export class App {
   // Computed para mostrar/ocultar el mensaje
   protected showCopyMessage = computed(() => this.copyMessage() !== '');
 
-  // Private properties
-  private readonly maxPasswordLength = 25;
-  private readonly minPasswordLength = 4;
+  // Public properties para usar en template
+  protected readonly maxPasswordLength = 25;
+  protected readonly minPasswordLength = 4;
+  
   private copyTimeoutId: number | null = null;
 
   constructor(
@@ -87,6 +88,21 @@ export class App {
 
   protected get hasValidationError(): boolean {
     return this.passwordForm.hasError('noOptionsSelected');
+  }
+
+  // Nuevos métodos para los botones de longitud
+  protected increaseLength(): void {
+    const currentLength = this.passwordForm.get('length')?.value ?? 12;
+    if (currentLength < this.maxPasswordLength) {
+      this.passwordForm.get('length')?.setValue(currentLength + 1);
+    }
+  }
+
+  protected decreaseLength(): void {
+    const currentLength = this.passwordForm.get('length')?.value ?? 12;
+    if (currentLength > this.minPasswordLength) {
+      this.passwordForm.get('length')?.setValue(currentLength - 1);
+    }
   }
 
   // Private methods
