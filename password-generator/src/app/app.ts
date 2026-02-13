@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed, effect } from '@angular/core';
 import {
   GeneratedPassword,
   PasswordFormGroup,
@@ -21,17 +21,33 @@ export class App {
   protected currentPassword = '';
   protected showError = false;
   protected recentPasswords: GeneratedPassword[] = [];
-  protected copyMessage = '';
+  
+  // Signal para el mensaje de copiado
+  protected copyMessage = signal<string>('');
+  
+  // Computed para mostrar/ocultar el mensaje
+  protected showCopyMessage = computed(() => this.copyMessage() !== '');
 
   // Private properties
   private readonly maxPasswordLength = 25;
   private readonly minPasswordLength = 4;
+  private copyTimeoutId: number | null = null;
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly passwordService: PasswordService,
   ) {
     this.initializeForm();
+    
+    // Effect para limpiar el mensaje automáticamente
+    effect(() => {
+      if (this.copyMessage()) {
+        this.clearPreviousTimeout();
+        this.copyTimeoutId = window.setTimeout(() => {
+          this.copyMessage.set('');
+        }, 2000); // 2 segundos
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -41,6 +57,7 @@ export class App {
 
   ngOnDestroy(): void {
     this.passwordService.clearRecentPasswords();
+    this.clearPreviousTimeout();
   }
 
   // Protected methods (used in template)
@@ -117,15 +134,17 @@ export class App {
   private async copyPasswordToClipboard(password: string): Promise<void> {
     try {
       await navigator.clipboard.writeText(password);
-      this.copyMessage = '¡Copiado!';
-      this.clearCopyMessage();
+      this.copyMessage.set('¡Copiado exitosamente!');
     } catch (err) {
-      this.copyMessage = 'Error al copiar';
-      this.clearCopyMessage();
+      this.copyMessage.set('Error al copiar');
+      console.error('Error copying to clipboard:', err);
     }
   }
 
-  private clearCopyMessage(): void {
-    setTimeout(() => (this.copyMessage = ''), 1000);
+  private clearPreviousTimeout(): void {
+    if (this.copyTimeoutId) {
+      clearTimeout(this.copyTimeoutId);
+      this.copyTimeoutId = null;
+    }
   }
 }
