@@ -1,0 +1,15 @@
+{
+  "name": "Zertiva",
+  "short_name": "Zertiva",
+  "description": "Operador logístico en Paraguay: transporte internacional y nacional, despacho de aduanas y comercio exterior.",
+  "lang": "es-PY",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F3F8",
+  "theme_color": "#4A2C82",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
