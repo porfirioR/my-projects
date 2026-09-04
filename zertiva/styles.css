@@ -1,0 +1,64 @@
+:root{
+  --violet:#4A2C82;
+  --violet-dark:#301D57;
+  --red:#E5384D;
+  --paper:#F5F3F8;
+  --ink:#211A33;
+  --mist:#8B80A3;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+}
+.font-head{
+  font-family:'Quicksand', sans-serif;
+  letter-spacing:-0.01em;
+}
+.hairline{border-color:rgba(139,128,163,0.35);}
+
+/* Route line draw-on-load animation */
+.route-path{
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 2.2s ease-out forwards;
+  animation-delay: .3s;
+}
+.route-node{
+  opacity:0;
+  animation: fadein .6s ease-out forwards;
+}
+.route-node:nth-of-type(1){animation-delay:.4s}
+.route-node:nth-of-type(2){animation-delay:1s}
+.route-node:nth-of-type(3){animation-delay:1.6s}
+.route-node:nth-of-type(4){animation-delay:2.1s}
+@keyframes draw{ to { stroke-dashoffset: 0; } }
+@keyframes fadein{ to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce){
+  .route-path{animation:none; stroke-dashoffset:0;}
+  .route-node{animation:none; opacity:1;}
+}
+
+#mobile-menu{ display:none; }
+#mobile-menu.open{ display:block; }
+
+/* FAQ (details/summary, sin JS) */
+.faq summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{
+  content:"+";
+  font-family:'Quicksand', sans-serif;
+  font-size:1.5rem;
+  line-height:1;
+  color:var(--red);
+  transition:transform .2s ease;
+}
+.faq[open] summary::after{ content:"\2013"; }
