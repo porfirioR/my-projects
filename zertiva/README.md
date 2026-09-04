@@ -35,13 +35,30 @@ El `canonical` apunta a `https://www.zertiva.com.py/`. En Cloudflare Pages / Net
 
 Si no, Google puede indexar versiones duplicadas.
 
-## Deploy — importante si este repo tiene más proyectos
+## Deploy de prueba en GitHub Pages (monorepo)
 
-Este repo (`my-projects`) parece un monorepo con varias carpetas. **GitHub Pages solo sirve un sitio por repositorio** (la raíz o `/docs`), así que no podés apuntar tu dominio solo a la carpeta `landing-page` usando GitHub Pages directamente sin que interfiera con tus otros proyectos.
+Este repo (`my-projects`) tiene varias carpetas (`password-generator`, `registro-unico-contribuyente`, `zertiva`). GitHub Pages nativo (branch + carpeta `/` o `/docs`) sirve **todo el repo**, así que no alcanza para publicar solo esta carpeta.
 
-Opciones recomendadas:
+Para probar sin tocar los demás proyectos se agregó un workflow de GitHub Actions: [`.github/workflows/deploy-zertiva-pages.yml`](../.github/workflows/deploy-zertiva-pages.yml) (vive en la raíz del monorepo, los workflows siempre van ahí). Qué hace:
 
-1. **Cloudflare Pages o Netlify** (recomendado): conectás el repo, y en la configuración de build seteás el **"directorio raíz" / "base directory"** como `landing-page`. Sin build command (es HTML estático). Cada push a `main` despliega solo. Después apuntás tu dominio `.com.py` ahí (registros DNS que te van a indicar en el panel).
+- Se dispara solo con cambios bajo `zertiva/**` (o manualmente desde la pestaña Actions).
+- Empaqueta **únicamente** la carpeta `zertiva/` como artifact de Pages — el resto del repo nunca se incluye ni se toca.
+- Publica ese artifact con `actions/deploy-pages`.
+
+Pasos manuales (una sola vez, en GitHub, no vía código):
+
+1. **Settings → Pages** del repo → en "Build and deployment" → **Source: GitHub Actions** (no "Deploy from a branch").
+2. Hacer push a `main` con cambios en `zertiva/` (o correr el workflow manualmente desde Actions → "Deploy Zertiva (GitHub Pages)" → Run workflow).
+3. La URL de prueba queda en `https://porfirior.github.io/my-projects/` (Pages de proyecto, no de usuario). Todos los links del sitio ya son relativos, así que funcionan bajo ese subpath.
+
+Limitaciones de esta URL de prueba (no pasa nada, es solo para probar):
+
+- El `canonical`, Open Graph, Twitter Card y JSON-LD siguen apuntando a `https://www.zertiva.com.py/` (el dominio real) — no se van a corregir automáticamente para la URL de `github.io`.
+- `robots.txt` / `sitemap.xml` no tienen efecto real en un subpath de `github.io` (los buscadores solo miran `robots.txt` en la raíz del dominio).
+
+Para producción real (dominio propio `.com.py`), lo recomendado sigue siendo:
+
+1. **Cloudflare Pages o Netlify**: conectás el repo, y en la configuración de build seteás el **"directorio raíz" / "base directory"** como `zertiva`. Sin build command (es HTML estático). Cada push a `main` despliega solo esa carpeta. Después apuntás tu dominio `.com.py` ahí.
 2. **Repo separado solo para la landing**: creás `zertiva-landing` aparte y usás GitHub Pages normal con `CNAME`.
 
 ## Después de publicar
