@@ -2,27 +2,39 @@
 
 Landing page estática (HTML + Tailwind vía CDN, sin build).
 
-Archivos:
+Estructura:
 
-- `index.html` — la página.
-- `styles.css` — CSS propio (variables de marca, animación de la ruta SVG, FAQ).
-- `main.js` — JS propio (año del footer, menú móvil).
-- `404.html` — página de error, `noindex`.
-- `robots.txt`, `sitemap.xml` — SEO técnico.
-- `favicon.svg` — favicon vectorial generado con el wordmark.
-- `site.webmanifest` — PWA / iconos.
+```text
+zertiva/
+├── index.html            página principal
+├── 404.html               página de error, noindex
+├── css/
+│   └── styles.css         variables de marca, animación de la ruta SVG, FAQ
+├── js/
+│   └── main.js             año del footer, menú móvil
+├── assets/
+│   └── images/             og-image.jpg, logo.png (faltan subir, ver abajo)
+├── favicon.ico             (falta subir — ver abajo)
+├── favicon.svg             favicon vectorial, ya generado con el wordmark
+├── site.webmanifest        PWA / iconos
+├── robots.txt
+├── sitemap.xml
+└── README.md
+```
+
+`favicon.ico` va sí o sí en la raíz (los navegadores lo piden ahí por convención, aunque no haya `<link>`); el resto de los iconos (`apple-touch-icon.png`, `android-chrome-*.png`) también se dejaron en la raíz junto al manifest por la misma razón. Las imágenes de contenido (`og-image.jpg`, `logo.png`) van en `assets/images/`.
 
 Todos los datos ya son los reales de Zertiva: colores, wordmark, WhatsApp (+595 981 421 777, con mensaje predefinido), correo (ana.lesme@zertiva.com.py), dirección e Instagram.
 
 ## Assets que faltan generar (binarios, no se pueden crear desde código acá)
 
-El `<head>` y el manifest ya los referencian; hay que subir los archivos a la raíz:
+El `<head>` y el manifest ya los referencian; solo hay que subir los archivos a la carpeta indicada:
 
-- `og-image.jpg` — 1200×630 px, para la previsualización al compartir el link (Open Graph + Twitter Card). Sin esto el link se comparte sin imagen.
-- `favicon.ico` — 32×32 (fallback para navegadores viejos). El `favicon.svg` ya está.
-- `apple-touch-icon.png` — 180×180.
-- `android-chrome-192x192.png` y `android-chrome-512x512.png` — para el manifest.
-- `logo.png` — logo cuadrado sobre fondo transparente, referenciado en el JSON-LD (`Organization.logo`).
+- ~~`assets/images/og-image.jpg`~~ — listo: `assets/images/image-1.jpg` (1200×630, 127KB, foto del puerto), usada en Open Graph + Twitter Card + JSON-LD.
+- `assets/images/logo.png` — logo cuadrado sobre fondo transparente, referenciado en el JSON-LD (`Organization.logo`).
+- `favicon.ico` (raíz) — 32×32 (fallback para navegadores viejos). El `favicon.svg` ya está.
+- `apple-touch-icon.png` (raíz) — 180×180.
+- `android-chrome-192x192.png` y `android-chrome-512x512.png` (raíz) — para el manifest.
 
 Un generador tipo <https://realfavicongenerator.net> produce todo el set a partir de un PNG de origen.
 
